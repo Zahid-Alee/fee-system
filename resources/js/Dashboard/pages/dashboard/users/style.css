@@ -1,0 +1,19 @@
+
+
+
+.field {
+
+    display: flex;
+    flex-direction: column;
+    /* gap: 15px; */
+    height: 80px;
+}
+
+.field input,.field .relative {
+    margin: 10px 0px;
+}
+
+.field .text-red-500{
+
+    margin-top: 10px;
+}
