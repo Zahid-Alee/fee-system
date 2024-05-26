@@ -30,7 +30,7 @@ const TABS = [
   },
 ];
 
-const TABLE_HEAD = ["Name", "Roll number","Department", "Contact", "Date", "Action"];
+const TABLE_HEAD = ["Name", "Roll number", "Department", "Contact", "Date", "Action"];
 
 
 export function UserTable() {
@@ -90,15 +90,15 @@ export function UserTable() {
               </Typography>
             </div>
             <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
-              <Link to='/dashboard/user/create/'>
-              <Button className="flex items-center gap-3" size="sm" onClick={() => { 
-                // setUserPopup(true);
-                // setSelectedUser(null);
+              <a href='/dashboard/user/create/'>
+                <Button className="flex items-center gap-3" size="sm" onClick={() => {
+                  // setUserPopup(true);
+                  // setSelectedUser(null);
 
-                 }}>
-                <UserPlusIcon strokeWidth={2} className="h-4 w-4" /> Add Student
-              </Button>
-              </Link>
+                }}>
+                  <UserPlusIcon strokeWidth={2} className="h-4 w-4" /> Add Student
+                </Button>
+              </a>
             </div>
           </div>
         </CardHeader>
@@ -205,15 +205,15 @@ export function UserTable() {
                         </Typography>
                       </td>
                       <td className={classes}>
-                        <Link to={`/dashboard/user/edit/${user.id}`}>
-                        <Tooltip content="Edit User">
-                          <IconButton variant="text" onClick={() => {
-                            
-                          }}>
-                            <PencilIcon className="h-4 w-4" />
-                          </IconButton>
-                        </Tooltip>
-                        </Link>
+                        <a href={`/dashboard/user/edit/${user.id}`}>
+                          <Tooltip content="Edit User">
+                            <IconButton variant="text" onClick={() => {
+
+                            }}>
+                              <PencilIcon className="h-4 w-4" />
+                            </IconButton>
+                          </Tooltip>
+                        </a>
                         <Tooltip content="Delete User">
                           <IconButton variant="text" onClick={() => {
                             deleteUser(user.id)
@@ -248,8 +248,8 @@ export function UserTable() {
           </Button>
         </DialogFooter>
       </Dialog> */}
-      
-      </>
+
+    </>
     // </NavbarSidebarLayout>
 
   );

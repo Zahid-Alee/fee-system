@@ -4,40 +4,66 @@ namespace App\Http\Controllers;
 
 use App\Models\FeeStructure;
 use App\Models\FeeSubmission;
+use App\Models\StudentClass;
+use App\Models\Transaction;
+use App\Models\User;
 use Auth;
 use Illuminate\Http\Request;
 
 class FeeSubmissionController extends Controller
 {
+
+
+    public function dashboardAnalytics($s_id = null)
+    {
+
+        $user = Auth::user();
+
+        if ($user['role'] == 'student') {
+            
+        }
+
+        $registration_count = User::count() - 1;
+        $department_count = StudentClass::count();
+        $total_revenue = Transaction::sum('total_amount');
+
+
+        return [
+            'registrations' => $registration_count,
+            'departments' => $department_count,
+            'total_revenue' => $total_revenue,
+        ];
+
+    }
     public function index()
     {
         $user = Auth::user();
         $studentFees = $user->fees()
             ->where('semester', $user->semester)
             ->get();
-    
+
         $studentFeeDetails = [];
-    
+
         foreach ($studentFees as $studentFee) {
             $status = $user->hasSubmittedFee($studentFee->id) ? 'Paid' : 'Pending';
-        
-            $feeStructure = FeeStructure::find($studentFee->id); 
-        
+
+            $feeStructure = FeeStructure::find($studentFee->id);
+
             if ($feeStructure) {
                 $studentFeeDetails[] = [
-                    'id'=>$feeStructure->id,
+                    'id' => $feeStructure->id,
                     'due_date' => $feeStructure->due_date,
                     'semester' => $feeStructure->semester,
                     'fee' => $feeStructure->fee,
                     'status' => $status,
-                    'created_at'=>$feeStructure->created_at,
+                    'created_at' => $feeStructure->created_at,
                 ];
             }
         }
-    
+
         return response()->json(['fees' => $studentFeeDetails]);
     }
-    
+
 
     public function store(Request $request)
     {

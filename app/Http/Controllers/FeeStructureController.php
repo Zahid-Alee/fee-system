@@ -3,8 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Mail\FeeNotification;
+// use App\Mail\FeeSubmission;
+use App\Mail\TransactionNotification;
 use App\Models\FeeStructure;
+use App\Models\FeeSubmission;
 use App\Models\StudentClass;
+use App\Models\Transaction;
 use App\Models\User;
 use Auth;
 use Illuminate\Http\Request;
@@ -21,11 +25,13 @@ class FeeStructureController extends Controller
             $user_id = Auth::id();
 
             $studentFees = FeeStructure::where('id', $id)
-                ->with(['transactions' => function ($query) use ($user_id) {
-                    $query->where('user_id', $user_id);
-                }])
+                ->with([
+                    'transactions' => function ($query) use ($user_id) {
+                        $query->where('user_id', $user_id);
+                    }
+                ])
                 ->get();
-                
+
         } else {
 
             $studentFees = FeeStructure::with('studentClass')->get();
@@ -47,7 +53,7 @@ class FeeStructureController extends Controller
                 'late_fee_fine' => '',
                 'min_fee_per_installment' => '',
             ]);
-    
+
             $studentFee = new FeeStructure();
             $studentFee->semester = $request->input('semester');
             $studentFee->fee = $request->input('fee');
@@ -57,16 +63,47 @@ class FeeStructureController extends Controller
             $studentFee->due_date = $request->input('due_date');
             $studentFee->class_id = $request->input('class_id');
             $studentFee->save();
-    
+
             $users_emails = User::where('class_id', $request->input('class_id'))
                 ->where('semester', $request->input('semester'))
                 ->pluck('email');
-    
+
             foreach ($users_emails as $email) {
-                $feeNotification = new FeeNotification($studentFee);
-                Mail::to($email)->send($feeNotification);
+                $current_user = User::where('email', $email)->first();
+                if ($current_user->scholorship) {
+
+                    $transaction = new Transaction();
+                    $transaction->email = $current_user->email;
+                    $transaction->total_amount = $request->input('fee');
+                    $transaction->card_holder = 'COMSATS UNIVERSITY VEHARI';
+                    $transaction->card_no = '1234-5678-9012-3456';
+                    $transaction->credit_cvc = '345';
+                    $transaction->credit_expiry = '10/25';
+                    $transaction->late_fine = 0;
+                    $transaction->payment_method = 'Master';
+                    $transaction->remaining_fee = 0;
+                    $transaction->fee_id = $studentFee->id;
+                    $transaction->user_id = $current_user->id;
+                    $created_trans = $transaction->save();
+
+                    if ($created_trans) {
+                        $fee_submission = new FeeSubmission();
+                        $fee_submission->user_id = $current_user->id;
+                        $fee_submission->fee_id = $studentFee->id;
+                        $saved_fee_submission = $fee_submission->save();
+
+                        if($saved_fee_submission){
+                            Mail::to($current_user->email)->send(new TransactionNotification($transaction));
+                        }
+                    }
+
+                } else {
+                    // dd('user has not awarded scholorhip');
+                    $feeNotification = new FeeNotification($studentFee);
+                    Mail::to($email)->send($feeNotification);
+                }
             }
-    
+
             return [
                 "fees" => $studentFee,
                 "success" => true,
@@ -75,7 +112,7 @@ class FeeStructureController extends Controller
             return response()->json(['error' => $e->getMessage()], 500);
         }
     }
-    
+
 
 
 
