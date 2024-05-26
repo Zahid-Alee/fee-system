@@ -191,14 +191,18 @@ export function FeeTable() {
                         </Typography>
                       </td>
                       <td className={classes}>
-                        <a href={`/dashboard/fee/edit/${user.id}`}></a>
-                        <Tooltip content="Edit Fee">
-                          <IconButton variant="text" onClick={() => {
+                        <a href={`/dashboard/fee/edit/${user.id}`}>
 
-                          }}>
-                            <PencilIcon className="h-4 w-4" />
-                          </IconButton>
-                        </Tooltip>
+                          <Tooltip content="Edit Fee">
+                            <IconButton variant="text" onClick={() => {
+
+                            }}>
+                              <PencilIcon className="h-4 w-4" />
+                            </IconButton>
+                          </Tooltip>
+
+                        </a>
+
                         <Tooltip content="Delete User">
                           <IconButton variant="text" onClick={() => {
                             deleteUser(user.id)

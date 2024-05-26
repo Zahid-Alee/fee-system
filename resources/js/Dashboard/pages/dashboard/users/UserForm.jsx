@@ -13,6 +13,11 @@ import axios from "axios";
 import * as Yup from 'yup';
 import toast, { Toaster } from "react-hot-toast";
 
+
+
+const isEditUser = window.location.pathname.split('/')[3] == 'edit';
+const user_id = window.location.pathname.split('/').pop();
+
 const validationSchema = Yup.object().shape({
     name: Yup.string()
         .matches(/^[a-zA-Z ]*$/, 'Name must contain only alphabets and spaces')
@@ -24,7 +29,7 @@ const validationSchema = Yup.object().shape({
         .matches(/^[a-zA-Z0-9-]*$/, 'Roll number must contain only -, numbers, and alphabets')
         .required('Roll number is required'),
     email: Yup.string().email('Invalid email').required('Email is required'),
-    password: Yup.string().min(8, 'Password must be at least 8 characters').required('Password is required'),
+    password: isEditUser ? '' : Yup.string().min(8, 'Password must be at least 8 characters').required('Password is required'),
     semester: Yup.string().required('Semester is required'),
     class_id: Yup.number().required('Department is required'),
 });
@@ -42,13 +47,11 @@ const semesters = [
     { id: 8, title: '8th Semester' },
 ]
 
-const isEditUser = window.location.pathname.split('/')[3] == 'edit';
-const user_id = window.location.pathname.split('/').pop();
 
 export function UerForm() {
 
     const [classes, setClasses] = useState([])
-    const [formValues, setFormValues] = useState([])
+    const [formValues, setFormValues] = useState({ scholorship: false })
     const [errors, setErrors] = useState({});
 
     const loadUser = async () => {
@@ -71,7 +74,7 @@ export function UerForm() {
     }, [])
     const createUser = async () => {
         try {
-            await validationSchema.validate(formValues, { abortEarly: false }); // Validate formValues
+            await validationSchema.validate(formValues, { abortEarly: false });
             const endpoint = isEditUser ? '/update/user' : '/save/user';
             const res = await axios.post(endpoint, { ...formValues });
             if (res.data.success) {
@@ -115,21 +118,28 @@ export function UerForm() {
             }
         }
     };
-    
 
+
+    const handleScholorship = (e) => {
+
+        let updatedValue = { ...formValues };
+        console.log('updatedValue', updatedValue)
+        setFormValues((prevValues) => ({ ...prevValues, ['scholorship']: !updatedValue['scholorship'] }));
+
+    }
 
     const handleChange = async (e) => {
+
         const { name, value } = e.target;
-    
-        let updatedValue = value; 
-    
+        let updatedValue = value;
+
         if (name === 'batch') {
             updatedValue = value.toUpperCase();
         }
-        else if(name=='email'){
+        else if (name == 'email') {
             updatedValue = value.toLowerCase();
         }
-    
+
         try {
             await validationSchema.validateAt(name, { [name]: updatedValue });
             setErrors((prevErrors) => ({ ...prevErrors, [name]: undefined }));
@@ -138,7 +148,7 @@ export function UerForm() {
         }
         setFormValues((prevValues) => ({ ...prevValues, [name]: updatedValue }));
     };
-    
+
 
     function loadClasses() {
 
@@ -155,7 +165,7 @@ export function UerForm() {
     return (
         <Card color="transparent" shadow={false}>
 
-            <Toaster/>
+            <Toaster />
             <Typography variant="h4" color="blue-gray">
                 {isEditUser ? 'Update ' : 'Register'} Student
             </Typography>
@@ -281,6 +291,12 @@ export function UerForm() {
                         />
                         {errors['phone'] && <div className="text-red-500 mt-1">{errors['phone']}</div>}
 
+                    </div>
+                    <div className="field flex" style={{ alignItems: 'center', gap: '30px', flexDirection: 'row' }}>
+                        <Typography variant="h6" color="blue-gray" className="-mb-3">
+                            Assign Scholorship To This Student
+                        </Typography>
+                        <input style={{ margin: '0' }} checked={formValues['scholorship']} type="checkbox" name="scholorship" onChange={handleScholorship} />
                     </div>
                 </div>
 

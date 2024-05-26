@@ -49,7 +49,7 @@ class TransactionController extends Controller
             'card_no' => 'required|string|max:255',
             'credit_expiry' => 'required|string|max:255',
             'credit_cvc' => 'required|string|max:255',
-            'late_fine' => 'required|string|max:255',
+            'late_fine' => 'string|max:255',
             'payment_method' => 'required|string|max:255',
             'fee_id' => 'required',
         ]);
@@ -60,13 +60,18 @@ class TransactionController extends Controller
             return response()->json(['error' => 'Fee not found'], 404);
         }
 
+        $current_late_fee_fine = $request->input('late_fine');
         $late_fine = $fee->late_fee_fine;
         $payable_amount = $request->input('total_amount');
 
         $due_date = Carbon::parse($fee->due_date);
 
         if ($due_date->isPast()) {
+            // dd('you are paying it late');
             $payable_amount += $late_fine;
+            $current_late_fee_fine = $late_fine;
+        }else {
+            // dd('due date is not over yet');
         }
 
         $prev_transactions = Transaction::select('total_amount', 'remaining_fee')->where('fee_id', $fee->id)->where('user_id', Auth::id())->get();
@@ -89,7 +94,7 @@ class TransactionController extends Controller
             $transaction->card_no = $request->input('card_no');
             $transaction->credit_cvc = $request->input('card_no');
             $transaction->credit_expiry = $request->input('credit_expiry');
-            $transaction->late_fine = $late_fine;
+            $transaction->late_fine = $current_late_fee_fine;
             $transaction->payment_method = $request->input('payment_method');
             $transaction->remaining_fee = $total_remaining_fee - $payable_amount;
             $transaction->fee_id = $request->input('fee_id');

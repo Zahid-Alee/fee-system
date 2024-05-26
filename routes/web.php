@@ -32,56 +32,60 @@ Route::middleware('auth')->group(function () {
 });
 
 
-Route::get('/users/all',function() {
-    return  User::where('role','student')->with('studentClass')->get();
+Route::get('/users/all', function () {
+    return User::where('role', 'student')->with('studentClass')->get();
 });
 
 
 Route::controller(RegisteredUserController::class)->group(function () {
-    Route::post('/save/user','saveUser')->name('save.user');
-    Route::post('/update/user','updateUser')->name('update.user');
-    Route::post('/delete/user','deleteUser')->name('delete.user');
-    Route::get('/api/user/{id?}','edit')->name('user.view');
+    Route::post('/save/user', 'saveUser')->name('save.user');
+    Route::post('/update/user', 'updateUser')->name('update.user');
+    Route::post('/delete/user', 'deleteUser')->name('delete.user');
+    Route::get('/api/user/{id?}', 'edit')->name('user.view');
 });
 
 
 Route::controller(StudentClassController::class)->group(function () {
-    
-    Route::get('/view/class','index')->name('view.class');
-    Route::post('/save/class','store')->name('save.class');
-    Route::post('/update/class','update')->name('update.class');
-    Route::post('/delete/class','destroy')->name('delete.class');
+
+    Route::get('/view/class', 'index')->name('view.class');
+    Route::post('/save/class', 'store')->name('save.class');
+    Route::post('/update/class', 'update')->name('update.class');
+    Route::post('/delete/class', 'destroy')->name('delete.class');
 });
 
 
 Route::controller(FeeStructureController::class)->group(function () {
-    
-    Route::get('/view/fee/{id?}','index')->name('view.fee');
-    Route::post('/save/fee','store')->name('save.fee');
-    Route::post('/update/fee','update')->name('update.fee');
-    Route::post('/delete/fee','destroy')->name('delete.fee');
+
+    Route::get('/view/fee/{id?}', 'index')->name('view.fee');
+    Route::post('/save/fee', 'store')->name('save.fee');
+    Route::post('/update/fee', 'update')->name('update.fee');
+    Route::post('/delete/fee', 'destroy')->name('delete.fee');
 });
 
 
 Route::controller(FeeSubmissionController::class)->group(function () {
-    
-    Route::get('/view/submission','index')->name('view.submission');
-    Route::post('/save/submission','store')->name('save.submission');
+
+    Route::get('/view/submission', 'index')->name('view.submission');
+    Route::post('/save/submission', 'store')->name('save.submission');
 });
 
 Route::controller(TransactionController::class)->group(function () {
-    
-    Route::post('/checkout','checkout')->name('make.checkout');
-    Route::get('/view/transaction','index')->name('view.transaction');
+
+    Route::post('/checkout', 'checkout')->name('make.checkout');
+    Route::get('/view/transaction', 'index')->name('view.transaction');
 
     // Route::post('/payment/callback','handleCallback')->name('save.callback');
+});
+Route::controller(FeeSubmissionController::class)->group(function () {
+
+    Route::get('/dashboard-analytics/{s_id?}', 'dashboardAnalytics')->name('dashboard.analytics');
 });
 
 
 
-    // Route::post('/checkout', 'JazzCashPaJazzCashPaymentControllerymentController@checkout');
+// Route::post('/checkout', 'JazzCashPaJazzCashPaymentControllerymentController@checkout');
 // Route::post('/payment/callback', 'JazzCashPaymentController@/payment/callback');
 
 
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

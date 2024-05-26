@@ -222,13 +222,13 @@ export function MyFeeTable() {
                         />
                       </td>
                       <td className={classes}>
-                        <Link to={`${user.id}`}>
+                        <a href={`/dashboard/my-fee/${user.id}`}>
                           <Tooltip content="View Fee">
                             <IconButton variant="text" onClick={()=>{}}>
                               <FaEye className="h-4 w-4" />
                             </IconButton>
                           </Tooltip>
-                        </Link>
+                        </a>
                       </td>
                     </tr>
                   );

@@ -31,24 +31,24 @@ class RegisteredUserController extends Controller
 
 
 
-     public function edit($id){
+    public function edit($id)
+    {
 
         $user = User::find($id);
-        if($user){
+        if ($user) {
 
             return [
-                'success'=>true,
-                'user'=>$user
+                'success' => true,
+                'user' => $user
             ];
-        }
-        else {
+        } else {
 
             return [
-                'success'=>false,
-                'user'=>[]
+                'success' => false,
+                'user' => []
             ];
         }
-     }
+    }
     public function deleteUser(Request $request)
     {
         $request->validate([
@@ -70,43 +70,43 @@ class RegisteredUserController extends Controller
     public function updateUser(Request $request)
     {
         $request->validate([
+            'id' => 'required|integer', // Added validation for the user ID
             'name' => 'required|string|max:255',
-            'batch' => 'required|string',
+            'batch' => 'required|string|max:25',
             'phone' => 'required',
             'semester' => 'required|string|max:255',
             'email' => 'required|string|lowercase|email|max:255',
             'class_id' => ['required', 'integer'],
+            'scholorship' => ['required', 'boolean'], // Corrected the spelling
         ]);
-
+    
         $user = User::find($request->id);
-
+    
         if (!$user) {
             return response()->json(['success' => false, 'message' => 'User not found'], 404);
         }
-
-        $dataToUpdate = [
-            'name' => $request->name,
-            'email' => $request->email,
-            'class_id' => $request->class_id,
-            'semester' => $request->semester,
-            'phone' => $request->phone,
-            'batch' => $request->batch,
-        ];
-
+    
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->class_id = $request->class_id;
+        $user->semester = $request->semester;
+        $user->phone = $request->phone;
+        $user->batch = $request->batch;
+        $user->scholorship = $request->scholorship;
+    
         if ($request->has('password')) {
-            $dataToUpdate['password'] = bcrypt($request->password);
+            $user->password = bcrypt($request->password);
         }
-
-        $user->update($dataToUpdate);
-
+    
+        $user->save();
+    
         return response()->json(['success' => true, 'user' => $user]);
     }
+    
 
 
     public function saveUser(Request $request)
     {
-
-
         $request->validate([
             'name' => 'required|string|max:255',
             'batch' => 'required|string|max:25',
@@ -115,25 +115,26 @@ class RegisteredUserController extends Controller
             'email' => 'required|string|lowercase|email|max:255|unique:' . User::class,
             'password' => ['required', 'string'],
             'class_id' => ['required', 'integer'],
+            'scholorship' => ['required', 'boolean'], 
         ]);
 
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'class_id' => $request->class_id,
-            'semester' => $request->semester,
-            'phone' => $request->phone,
-            'batch' => $request->batch,
-        ]);
+        $user = new User();
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = Hash::make($request->password);
+        $user->class_id = $request->class_id;
+        $user->semester = $request->semester;
+        $user->phone = $request->phone;
+        $user->batch = $request->batch;
+        $user->scholorship = $request->scholorship; // Assign the value directly
 
-        if ($user->id) {
+        if ($user->save()) {
             return ['success' => true, 'user' => $user];
         } else {
             return ['success' => false, 'user' => $user];
         }
-
     }
+
 
     public function store(Request $request): RedirectResponse
     {

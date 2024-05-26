@@ -20,14 +20,76 @@ import {
 import { StatisticsCard } from "../../widgets/cards";
 import { StatisticsChart } from "../../widgets/charts";
 import {
-  statisticsCardsData,
+  // statisticsCardsData,
   statisticsChartsData,
   projectsTableData,
   ordersOverviewData,
 } from "../../data";
-import { CheckCircleIcon, ClockIcon } from "@heroicons/react/24/solid";
+import { CheckCircleIcon, ClockIcon, UserPlusIcon } from "@heroicons/react/24/solid";
+import { useEffect } from "react";
+import { useState } from "react";
+import axios from "axios";
+import { FaCreditCard } from "react-icons/fa";
+import { FaSchoolCircleCheck } from "react-icons/fa6";
 
 export function Home() {
+
+
+  const [dashboard, setDashboard] = useState();
+
+  async function loadDashbardData() {
+
+    await axios.get('/dashboard-analytics')
+      .then((res) => {
+        console.log('resp', res);
+        setDashboard(res.data)
+      })
+      .catch(() => {
+
+      })
+  }
+
+  useEffect(() => {
+    loadDashbardData();
+  }, [])
+
+
+  const statisticsCardsData = [
+    {
+      color: "gray",
+      icon: FaCreditCard,
+      title: "Total Collection",
+      value: dashboard?.total_revenue,
+      footer: {
+        color: "text-green-500",
+        value: "+55%",
+        label: "than last week",
+      },
+    },
+    {
+      color: "gray",
+      icon: FaSchoolCircleCheck,
+      title: "Total Departments",
+      value: dashboard?.departments,
+      footer: {
+        color: "text-green-500",
+        value: "+3%",
+        label: "than last month",
+      },
+    },
+    {
+      color: "gray",
+      icon: UserPlusIcon,
+      title: "Registered Students",
+      value: dashboard?.registrations,
+      footer: {
+        color: "text-red-500",
+        value: "-2%",
+        label: "than yesterday",
+      },
+    }
+  ];
+
   return (
     <div className="mt-12">
       <div className="mb-12 grid gap-y-10 gap-x-6 md:grid-cols-2 xl:grid-cols-3">
@@ -106,7 +168,7 @@ export function Home() {
             <table className="w-full min-w-[640px] table-auto">
               <thead>
                 <tr>
-                  {["user", "method", "amount", "status",'date'].map(
+                  {["user", "method", "amount", "status", 'date'].map(
                     (el) => (
                       <th
                         key={el}
@@ -127,8 +189,8 @@ export function Home() {
                 {projectsTableData.map(
                   ({ name, amount, status }, key) => {
                     const className = `py-3 px-5 ${key === projectsTableData.length - 1
-                        ? ""
-                        : "border-b border-blue-gray-50"
+                      ? ""
+                      : "border-b border-blue-gray-50"
                       }`;
 
                     return (
@@ -212,8 +274,8 @@ export function Home() {
                 <div key={title} className="flex items-start gap-4 py-3">
                   <div
                     className={`relative p-1 after:absolute after:-bottom-6 after:left-2/4 after:w-0.5 after:-translate-x-2/4 after:bg-blue-gray-50 after:content-[''] ${key === ordersOverviewData.length - 1
-                        ? "after:h-0"
-                        : "after:h-4/6"
+                      ? "after:h-0"
+                      : "after:h-4/6"
                       }`}
                   >
                     {React.createElement(icon, {
