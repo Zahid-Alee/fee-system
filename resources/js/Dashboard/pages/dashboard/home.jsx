@@ -21,7 +21,7 @@ import { StatisticsCard } from "../../widgets/cards";
 import { StatisticsChart } from "../../widgets/charts";
 import {
   // statisticsCardsData,
-  statisticsChartsData,
+  // statisticsChartsData,
   projectsTableData,
   ordersOverviewData,
 } from "../../data";
@@ -32,6 +32,10 @@ import axios from "axios";
 import { FaCreditCard } from "react-icons/fa";
 import { FaSchoolCircleCheck } from "react-icons/fa6";
 
+
+import { chartsConfig } from "../../configs";
+
+
 export function Home() {
 
 
@@ -41,8 +45,16 @@ export function Home() {
 
     await axios.get('/dashboard-analytics')
       .then((res) => {
-        console.log('resp', res);
-        setDashboard(res.data)
+        const data = res.data;
+
+        const userDataArray = Object.keys(data.userData).map(key => data.userData[key]);
+        const transactionDataArray = Object.keys(data.transactionData).map(key => data.transactionData[key]);
+
+        setDashboard({
+          ...data,
+          userDataArray,
+          transactionDataArray
+        });
       })
       .catch(() => {
 
@@ -52,6 +64,79 @@ export function Home() {
   useEffect(() => {
     loadDashbardData();
   }, [])
+
+
+
+
+  console.log('transaction', dashboard?.transactionData)
+  const TransactionDetails = {
+    type: "bar",
+    height: 220,
+    series: [
+      {
+        name: "Transactions",
+        data: dashboard ? dashboard.transactionDataArray : [],
+      },
+    ],
+    options: {
+      chart: {
+        id: 'transactions-chart',
+      },
+      colors: "#388e3c",
+      plotOptions: {
+        bar: {
+          columnWidth: "16%",
+          borderRadius: 5,
+        },
+      },
+      xaxis: {
+        categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+      },
+    },
+  };
+
+  const RegisteredUsers = {
+    type: "line",
+    height: 220,
+    series: [
+      {
+        name: "Users",
+        data: dashboard ? dashboard.userDataArray : [],
+      },
+    ],
+    options: {
+      chart: {
+        id: 'registered-users-chart',
+      },
+      colors: ["#0288d1"],
+      stroke: {
+        lineCap: "round",
+      },
+      markers: {
+        size: 5,
+      },
+      xaxis: {
+        categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+      },
+    },
+  };
+
+  const statisticsChartsData = [
+    {
+      color: "white",
+      title: "Transaction Details",
+      description: "Last Campaign Performance",
+      footer: "campaign sent 2 days ago",
+      chart: TransactionDetails,
+    },
+    {
+      color: "white",
+      title: "Registered Users",
+      description: "15% increase this month",
+      footer: "updated 4 min ago",
+      chart: RegisteredUsers,
+    },
+  ];
 
 
   const statisticsCardsData = [
@@ -127,7 +212,7 @@ export function Home() {
           />
         ))}
       </div>
-      <div className="mb-4 grid grid-cols-1 gap-6 xl:grid-cols-3">
+      {/* <div className="mb-4 grid grid-cols-1 gap-6 xl:grid-cols-3">
         <Card className="overflow-hidden xl:col-span-2 border border-blue-gray-100 shadow-sm">
           <CardHeader
             floated={false}
@@ -303,7 +388,7 @@ export function Home() {
             )}
           </CardBody>
         </Card>
-      </div>
+      </div> */}
     </div>
   );
 }

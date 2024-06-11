@@ -179,7 +179,6 @@ export function FeeForm() {
                             type="date"
                             name="due_date"
                             size="lg"
-                            placeholder="03126847976"
                             className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
                             labelProps={{
                                 className: "before:content-none after:content-none",
@@ -198,7 +197,7 @@ export function FeeForm() {
                             type="number"
                             name="late_fee_fine"
                             size="lg"
-                            placeholder="03126847976"
+                            placeholder="Rs."
                             className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
                             labelProps={{
                                 className: "before:content-none after:content-none",
@@ -216,7 +215,9 @@ export function FeeForm() {
                             type="number"
                             name="installments_allowed"
                             size="lg"
-                            placeholder="03126847976"
+                            placeholder="1-3"
+                            min={1}
+                            max={3}
                             className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
                             labelProps={{
                                 className: "before:content-none after:content-none",
@@ -235,7 +236,7 @@ export function FeeForm() {
                             type="number"
                             name="min_fee_per_installment"
                             size="lg"
-                            placeholder="03126847976"
+                            placeholder="Rs"
                             className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
                             labelProps={{
                                 className: "before:content-none after:content-none",

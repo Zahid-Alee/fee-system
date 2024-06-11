@@ -183,7 +183,7 @@ export function UerForm() {
                             onChange={handleChange}
                             value={formValues['name'] ?? ''}
                             size="lg"
-                            placeholder="M TALAL"
+                            placeholder="Zahid Ali"
                             className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
                             labelProps={{
                                 className: "before:content-none after:content-none",
@@ -264,7 +264,7 @@ export function UerForm() {
                             type="text"
                             name="batch"
                             size="lg"
-                            placeholder="BSITM1-20-28"
+                            placeholder="FA20-BCS-000"
                             className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
                             labelProps={{
                                 className: "before:content-none after:content-none"
@@ -283,7 +283,7 @@ export function UerForm() {
                             type="text"
                             name="phone"
                             size="lg"
-                            placeholder="03126847976"
+                            placeholder="03123456789"
                             className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
                             labelProps={{
                                 className: "before:content-none after:content-none",

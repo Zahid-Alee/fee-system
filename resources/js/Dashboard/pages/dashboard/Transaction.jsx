@@ -43,6 +43,12 @@ export function TransactionsTable() {
   }, [])
 
 
+
+  function handleSearch(e) {
+
+  }
+
+
   return (
     <Card className="h-full w-full">
       <CardHeader floated={false} shadow={false} className="rounded-none">
@@ -56,15 +62,15 @@ export function TransactionsTable() {
             </Typography>
           </div>
           <div className="flex w-full shrink-0 gap-2 md:w-max">
-            <div className="w-full md:w-72">
+            {/* <div className="w-full md:w-72">
               <Input
                 label="Search"
                 icon={<MagnifyingGlassIcon className="h-5 w-5" />}
               />
-            </div>
-            <Button className="flex items-center gap-3" size="sm">
+            </div> */}
+            {/* <Button className="flex items-center gap-3" size="sm">
               <ArrowDownTrayIcon strokeWidth={2} className="h-4 w-4" /> Download
-            </Button>
+            </Button> */}
           </div>
         </div>
       </CardHeader>
@@ -104,7 +110,7 @@ export function TransactionsTable() {
                 index,
               ) => {
                 const isLast = index === transactions.length - 1;
-                let status = remaining_fee>0 ?`pending- Rs.${remaining_fee}`:'paid'
+                let status = remaining_fee > 0 ? `pending- Rs.${remaining_fee}` : 'paid'
                 const classes = isLast
                   ? "p-4"
                   : "p-4 border-b border-blue-gray-50";
@@ -177,7 +183,7 @@ export function TransactionsTable() {
                             color="blue-gray"
                             className="font-normal capitalize"
                           >
-                             {card_no}
+                            {card_no}
                           </Typography>
                           <Typography
                             variant="small"
@@ -196,7 +202,7 @@ export function TransactionsTable() {
           </tbody>
         </table>
       </CardBody>
-      <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
+      {/* <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
         <Button variant="outlined" size="sm">
           Previous
         </Button>
@@ -226,7 +232,7 @@ export function TransactionsTable() {
         <Button variant="outlined" size="sm">
           Next
         </Button>
-      </CardFooter>
+      </CardFooter> */}
     </Card>
   );
 }

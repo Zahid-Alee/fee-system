@@ -105,7 +105,7 @@ export function MyFeeForm({ formValues, setFormValues }) {
                         type="date"
                         name="due_date"
                         size="lg"
-                        placeholder="03126847976"
+                        placeholder="03123456789"
                         className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
                         labelProps={{
                             className: "before:content-none after:content-none",

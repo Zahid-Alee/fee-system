@@ -33,42 +33,66 @@ export const routes = [
         name: "dashboard",
         path: "/home",
         element: <Home />,
+<<<<<<< HEAD
         role:['student','admin']
+=======
+        role: ['student', 'admin']
+>>>>>>> 7f501ca4de17df28bbc73e5a89a1810919e4bdf3
       },
       {
         icon: <FaCreditCard {...icon} />,
         name: "Transaction",
         path: "/transaction",
         element: <TransactionsTable />,
+<<<<<<< HEAD
         role:['student','admin']
+=======
+        role: ['student', 'admin']
+>>>>>>> 7f501ca4de17df28bbc73e5a89a1810919e4bdf3
       },
       {
         icon: <PiStudentBold {...icon} />,
         name: "Students",
         path: "/students",
         element: <UserTable />,
+<<<<<<< HEAD
         role:['admin']
+=======
+        role: ['admin']
+>>>>>>> 7f501ca4de17df28bbc73e5a89a1810919e4bdf3
       },
       {
         icon: <FaSchool {...icon} />,
         name: "Departments",
         path: "/department",
         element: <ClassTable />,
+<<<<<<< HEAD
         role:['admin']
       },
   
+=======
+        role: ['admin']
+      },
+
+>>>>>>> 7f501ca4de17df28bbc73e5a89a1810919e4bdf3
       {
         icon: <MdPayments {...icon} />,
         name: "Fee Structure",
         path: "/fees",
         element: <FeeTable />,
+<<<<<<< HEAD
         role:['admin']
       },  
+=======
+        role: ['admin']
+      },
+>>>>>>> 7f501ca4de17df28bbc73e5a89a1810919e4bdf3
       {
         icon: <MdPayments {...icon} />,
         name: "My Fees",
         path: "/my-fee",
         element: <MyFeeTable />,
+<<<<<<< HEAD
         role:['student']
       },    
       {
@@ -79,6 +103,17 @@ export const routes = [
         role:['student','admin']
       },  
   
+=======
+        role: ['student']
+      },
+      // {
+      //   icon: <FaSignOutAlt {...icon} />,
+      //   name: "logout",
+      //   path: "/logout",
+      //   element: <Profile />,
+      //   role: ['student', 'admin']
+      // },
+>>>>>>> 7f501ca4de17df28bbc73e5a89a1810919e4bdf3
     ],
   },
 ];

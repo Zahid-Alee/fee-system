@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\FeeStructureController;
 use App\Http\Controllers\FeeSubmissionController;
@@ -21,7 +22,14 @@ Route::get('/', function () {
     ]);
 });
 
+Route::get('/dashboard/logout', [AuthenticatedSessionController::class, 'destroy']);
+
+
 Route::get('/dashboard/{any?}/{id?}/{user_id?}', function () {
+    return Inertia::render('Dashboard');
+})->middleware(['auth', 'verified']);
+
+Route::get('/dashboard/home', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
@@ -34,6 +42,14 @@ Route::middleware('auth')->group(function () {
 
 Route::get('/users/all', function () {
     return User::where('role', 'student')->with('studentClass')->get();
+});
+
+Route::get('/about', function () {
+    return view('about');
+});
+
+Route::get('/contact', function () {
+    return view('contact');
 });
 
 
