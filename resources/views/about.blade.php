@@ -192,7 +192,7 @@
     <!-- member_counter counter end -->
 
     <!--::review_part start::-->
-    <section class="testimonial_part section_padding">
+    <!-- <section class="testimonial_part section_padding">
         <div class="container-fluid">
             <div class="row justify-content-center">
                 <div class="col-xl-5">
@@ -306,7 +306,7 @@
 
             </div>
         </div>
-    </section>
+    </section> -->
     <!--::blog_part end::-->
 
     <!-- footer part start-->
