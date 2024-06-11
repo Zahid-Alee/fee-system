@@ -33,52 +33,51 @@ export const routes = [
         name: "dashboard",
         path: "/home",
         element: <Home />,
-        role:['student','admin']
+        role: ['student', 'admin']
       },
       {
         icon: <FaCreditCard {...icon} />,
         name: "Transaction",
         path: "/transaction",
         element: <TransactionsTable />,
-        role:['student','admin']
+        role: ['student', 'admin']
       },
       {
         icon: <PiStudentBold {...icon} />,
         name: "Students",
         path: "/students",
         element: <UserTable />,
-        role:['admin']
+        role: ['admin']
       },
       {
         icon: <FaSchool {...icon} />,
         name: "Departments",
         path: "/department",
         element: <ClassTable />,
-        role:['admin']
+        role: ['admin']
       },
-  
+
       {
         icon: <MdPayments {...icon} />,
         name: "Fee Structure",
         path: "/fees",
         element: <FeeTable />,
-        role:['admin']
-      },  
+        role: ['admin']
+      },
       {
         icon: <MdPayments {...icon} />,
         name: "My Fees",
         path: "/my-fee",
         element: <MyFeeTable />,
-        role:['student']
-      },    
-      {
-        icon: <FaSignOutAlt {...icon} />,
-        name: "logout",
-        path: "/logut",
-        element: <Profile />,
-        role:['student','admin']
-      },  
-  
+        role: ['student']
+      },
+      // {
+      //   icon: <FaSignOutAlt {...icon} />,
+      //   name: "logout",
+      //   path: "/logout",
+      //   element: <Profile />,
+      //   role: ['student', 'admin']
+      // },
     ],
   },
 ];

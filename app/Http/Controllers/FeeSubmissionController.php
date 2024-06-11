@@ -20,20 +20,43 @@ class FeeSubmissionController extends Controller
         $user = Auth::user();
 
         if ($user['role'] == 'student') {
-            
         }
 
         $registration_count = User::count() - 1;
         $department_count = StudentClass::count();
         $total_revenue = Transaction::sum('total_amount');
 
+        $registeredUsers = User::selectRaw('MONTH(created_at) as month, COUNT(*) as count')
+            ->groupBy('month')
+            ->pluck('count', 'month')
+            ->all();
+
+        // Initialize an array with all months
+        $usersData = array_fill(1, 12, 0);
+        foreach ($registeredUsers as $month => $count) {
+            $usersData[$month] = $count;
+        }
+
+        // Get transactions count per month
+        $transactions = Transaction::selectRaw('MONTH(created_at) as month, COUNT(*) as count')
+            ->groupBy('month')
+            ->pluck('count', 'month')
+            ->all();
+
+        // Initialize an array with all months
+        $transactionsData = array_fill(1, 12, 0);
+        foreach ($transactions as $month => $count) {
+            $transactionsData[$month] = $count;
+        }
+
 
         return [
             'registrations' => $registration_count,
             'departments' => $department_count,
             'total_revenue' => $total_revenue,
+            'userData'=>$usersData,
+            'transactionData'=>$transactionsData,
         ];
-
     }
     public function index()
     {
