@@ -49,7 +49,7 @@ class TransactionController extends Controller
             'card_no' => 'required|string|max:255',
             'credit_expiry' => 'required|string|max:255',
             'credit_cvc' => 'required|string|max:255',
-            'late_fine' => 'string|max:255',
+            'late_fine' => 'max:255',
             'payment_method' => 'required|string|max:255',
             'fee_id' => 'required',
         ]);

@@ -23,7 +23,7 @@ class FeeStructureController extends Controller
         if ($id) {
 
             $user_id = Auth::id();
-
+            $user = User::with('studentClass')->where('id', $user_id)->get();
             $studentFees = FeeStructure::where('id', $id)
                 ->with([
                     'transactions' => function ($query) use ($user_id) {
@@ -32,12 +32,16 @@ class FeeStructureController extends Controller
                 ])
                 ->get();
 
+            $studentFees->user = $user;
         } else {
 
             $studentFees = FeeStructure::with('studentClass')->get();
         }
         return [
-            "fees" => $studentFees,
+            "fees" => [
+                'fee' => $studentFees,
+                'user' => $user,
+            ],
             "success" => true,
         ];
     }
@@ -92,11 +96,10 @@ class FeeStructureController extends Controller
                         $fee_submission->fee_id = $studentFee->id;
                         $saved_fee_submission = $fee_submission->save();
 
-                        if($saved_fee_submission){
+                        if ($saved_fee_submission) {
                             Mail::to($current_user->email)->send(new TransactionNotification($transaction));
                         }
                     }
-
                 } else {
                     // dd('user has not awarded scholorhip');
                     $feeNotification = new FeeNotification($studentFee);

@@ -1,7 +1,6 @@
 import {
     Card,
     Input,
-    Checkbox,
     Button,
     Typography,
     Select,
@@ -10,6 +9,7 @@ import {
 import { useEffect, useState } from "react";
 import './../users/style.css'
 import * as Yup from 'yup';
+import toast, { Toaster } from "react-hot-toast";
 
 const semesters = [
     { id: 1, title: '1st Semester' },
@@ -68,7 +68,8 @@ export function FeeForm() {
 
             const res = await axios.post(isEditFee ? '/update/fee' : '/save/fee', { ...formValues });
             if (res.data.success) {
-                setFormValues(res.data.fees)
+                setFormValues(res.data.fees);
+                toast.success('Fee has been created successfully');
             } else {
             }
         } catch (error) {
@@ -86,24 +87,24 @@ export function FeeForm() {
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-    
+
         const updatedValues = { ...formValues };
         updatedValues[name] = value;
 
-            if (name === 'due_date') {
+        if (name === 'due_date') {
             const currentDate = new Date();
             const selectedDate = new Date(value);
-    
+
             if (selectedDate <= currentDate) {
                 setErrors((prevErrors) => ({ ...prevErrors, [name]: 'Please select a valid due date.' }));
             } else {
                 setErrors((prevErrors) => ({ ...prevErrors, [name]: undefined }));
             }
         }
-    
+
         setFormValues(updatedValues);
     }
-    
+
 
 
 
@@ -118,6 +119,7 @@ export function FeeForm() {
 
     return (
         <Card color="transparent" shadow={false}>
+            <Toaster />
             <Typography variant="h4" color="blue-gray">
                 Fee Structure
             </Typography>

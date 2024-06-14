@@ -219,7 +219,6 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
                 </div>
             </section>
 
-
             <footer class="footer-area">
                 <div class="container">
                     <div class="row justify-content-between">

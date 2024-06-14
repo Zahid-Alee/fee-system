@@ -1,17 +1,10 @@
 import {
   HomeIcon,
-  UserCircleIcon,
-  TableCellsIcon,
-  InformationCircleIcon,
-  ServerStackIcon,
-  RectangleStackIcon,
+
 } from "@heroicons/react/24/solid";
-import { Home, Profile, Notifications, TransactionsTable } from "./pages/dashboard";
-import { ImBooks } from "react-icons/im";
-import { FaCreditCard, FaSchool, FaSignOutAlt } from "react-icons/fa";
-import { Library } from "./pages/dashboard/Library";
-import { Tokens } from "./pages/dashboard/Tokens";
-import { FaKey } from "react-icons/fa6";
+import { Home, TransactionsTable } from "./pages/dashboard";
+import { FaCreditCard, FaSchool } from "react-icons/fa";
+
 import { MdPayments } from "react-icons/md";
 import { UserTable } from "./pages/dashboard/users/UserTable";
 import { ClassTable } from "./pages/dashboard/classes/ClassList";
@@ -71,13 +64,7 @@ export const routes = [
         element: <MyFeeTable />,
         role: ['student']
       },
-      // {
-      //   icon: <FaSignOutAlt {...icon} />,
-      //   name: "logout",
-      //   path: "/logout",
-      //   element: <Profile />,
-      //   role: ['student', 'admin']
-      // },
+
     ],
   },
 ];

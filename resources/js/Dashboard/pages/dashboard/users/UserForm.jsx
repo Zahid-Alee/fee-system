@@ -12,6 +12,7 @@ import './style.css'
 import axios from "axios";
 import * as Yup from 'yup';
 import toast, { Toaster } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 
 
@@ -53,6 +54,7 @@ export function UerForm() {
     const [classes, setClasses] = useState([])
     const [formValues, setFormValues] = useState({ scholorship: false })
     const [errors, setErrors] = useState({});
+    let navigate = useNavigate();
 
     const loadUser = async () => {
         await axios.get(`/api/user/${user_id}`)
@@ -97,6 +99,9 @@ export function UerForm() {
                         },
                     }
                 );
+
+                navigate('/dashboard/students');
+
             } else {
                 toast.error('Failed to save user!');
             }
@@ -183,7 +188,7 @@ export function UerForm() {
                             onChange={handleChange}
                             value={formValues['name'] ?? ''}
                             size="lg"
-                            placeholder="Zahid Ali"
+                            placeholder="Student Name Here.."
                             className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
                             labelProps={{
                                 className: "before:content-none after:content-none",
@@ -201,7 +206,7 @@ export function UerForm() {
                             name="email"
                             value={formValues['email'] ?? ''}
                             size="lg"
-                            placeholder="name@mail.com"
+                            placeholder="Student Email Here..."
                             className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
                             labelProps={{
                                 className: "before:content-none after:content-none",

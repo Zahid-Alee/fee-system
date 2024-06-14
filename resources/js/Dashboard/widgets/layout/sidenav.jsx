@@ -21,9 +21,10 @@ export function Sidenav({ brandImg, brandName, routes,user }) {
 
   return (
     <aside
+    style={{margin:'0px !important'}}
       className={`${sidenavTypes[sidenavType]} ${
         openSidenav ? "translate-x-0" : "-translate-x-80"
-      } fixed inset-0 z-50 my-4 ml-4 h-[calc(100vh-32px)] w-72 rounded-xl transition-transform duration-300 xl:translate-x-0 border border-blue-gray-100`}
+      } fixed inset-0 z-50  h-[calc(100vh-32px)] w-72 rounded-xl transition-transform duration-300 xl:translate-x-0 border border-blue-gray-100`}
     >
       <div
         className={`relative`}
@@ -98,7 +99,7 @@ export function Sidenav({ brandImg, brandName, routes,user }) {
 
 Sidenav.defaultProps = {
   brandImg: "/img/logo-ct.png",
-  brandName: "The Literature",
+  brandName: "Fee Automation",
 };
 
 Sidenav.propTypes = {
