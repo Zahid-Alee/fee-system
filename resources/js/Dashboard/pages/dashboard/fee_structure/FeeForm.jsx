@@ -55,7 +55,7 @@ export function FeeForm() {
         await axios.get(`/view/fee/${fee_id}`)
             .then((res) => {
                 if (res.data.success) {
-                    setFormValues(res.data.fees)
+                    setFormValues(res.data?.fees?.fee[0   ])
                 }
             })
             .catch((e) => { console.log(e) })

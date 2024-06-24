@@ -40,7 +40,7 @@ class FeeStructureController extends Controller
         return [
             "fees" => [
                 'fee' => $studentFees,
-                'user' => $user,
+                // 'user' => $user,
             ],
             "success" => true,
         ];

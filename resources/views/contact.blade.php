@@ -9,7 +9,7 @@
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+    <!-- <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" /> -->
 
 
 
@@ -176,7 +176,7 @@
                         <p>But when shot real her hamber her </p>
                     </div>
                 </div>
-                <div class="col-sm-6 col-md-4 col-xl-4">
+                <!-- <div class="col-sm-6 col-md-4 col-xl-4">
                     <div class="single-footer-widget footer_2">
                         <h4>Newsletter</h4>
                         <p>Stay updated with our latest trends Seed heaven so said place winged over given forth fruit.
@@ -198,7 +198,7 @@
                             <a href="#"> <i class="ti-skype"></i> </a>
                         </div>
                     </div>
-                </div>
+                </div> -->
                 <div class="col-xl-3 col-sm-6 col-md-4">
                     <div class="single-footer-widget footer_2">
                         <h4>Contact us</h4>

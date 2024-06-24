@@ -228,7 +228,7 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
                                 <p>Streamline your fee payments with our efficient and secure platform. Manage your finances effortlessly and stay updated with real-time notifications.</p>
                             </div>
                         </div>
-                        <div class="col-sm-6 col-md-4 col-xl-4">
+                        {/* <div class="col-sm-6 col-md-4 col-xl-4">
                             <div class="single-footer-widget footer_2">
                                 <h4>Newsletter</h4>
                                 <p>Stay updated with our latest features and updates. Subscribe to our newsletter.</p>
@@ -251,14 +251,16 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
                                     <a href="#"> <i class="ti-skype"></i> </a>
                                 </div>
                             </div>
-                        </div>
+                        </div> */}
                         <div class="col-xl-3 col-sm-6 col-md-4">
                             <div class="single-footer-widget footer_2">
                                 <h4>Contact Us</h4>
                                 <div class="contact_info">
-                                    <p><span> Address :</span> 123 Fee Management St, FinTech City, FT 45678 </p>
-                                    <p><span> Phone :</span> +1 (123) 456-7890</p>
-                                    <p><span> Email : </span>info@feemanagement.com </p>
+                                    <p><span> Address :</span>COMSATS UNIVERSITY ISLAMABAD, VEHARI </p>
+                                    <p><span> Phone :</span>03266986354</p>
+                                    <a href="mailto:mudassargujjar136@gmail.com">
+                                        <p><span> Email : </span>mudassargujjar136@gmail.com</p>
+                                    </a>
                                 </div>
                             </div>
                         </div>

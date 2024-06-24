@@ -144,7 +144,7 @@ export function Home() {
       color: "gray",
       icon: FaCreditCard,
       title: "Total Collection",
-      value: dashboard?.total_revenue,
+      value: `PKR. ${dashboard?.total_revenue}`,
       footer: {
         color: "text-green-500",
         value: "+55%",

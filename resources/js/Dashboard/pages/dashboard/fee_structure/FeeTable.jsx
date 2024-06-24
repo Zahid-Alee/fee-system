@@ -59,7 +59,7 @@ export function FeeTable() {
   async function loadUsers() {
 
     await axios.get('/view/fee').then((res) => {
-      setUsers(res?.data?.fees)
+      setUsers(res?.data?.fees.fee)
     }).catch(e => console.log(e))
 
   }
@@ -67,7 +67,7 @@ export function FeeTable() {
 
 
   return (
-    // <NavbarSidebarLayout isFooter={false} >
+
     <>
       <Card className="h-full w-full">
         <CardHeader floated={false} shadow={false} className="rounded-none">
